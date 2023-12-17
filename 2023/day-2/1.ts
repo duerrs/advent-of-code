@@ -7,53 +7,53 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green*/
 import * as fs from 'fs';
 
 interface GameData {
-	red: number,
-	blue: number,
-	green: number,
+    red: number,
+    blue: number,
+    green: number,
 }
 
 function getInputData(): string {
-	const inputBuffer: Buffer = fs.readFileSync('input.txt');
-	return inputBuffer.toString();
+    const inputBuffer: Buffer = fs.readFileSync('input.txt');
+    return inputBuffer.toString();
 }
 
-function parseData(inputData: string): GameData[][]{
-	const lines = inputData.split('\n').filter((line) => line != '');
-	const data: GameData[][] = [];
-	console.log(lines)
+function parseData(inputData: string): GameData[][] {
+    const lines = inputData.split('\n').filter((line) => line != '');
+    const data: GameData[][] = [];
+    console.log(lines)
 
-	for(const line of lines){
-		const gameData: GameData[] = [];
-		const game = line.split(': ')[1];
-		const rounds = game.split(';');
+    for (const line of lines) {
+        const gameData: GameData[] = [];
+        const game = line.split(': ')[1];
+        const rounds = game.split(';');
 
-		for(const round of rounds) {
-			const roundData: GameData = {
-				red: 0,
-				green: 0,
-				blue: 0,
-			};
-			const draws = round.split(',');
+        for (const round of rounds) {
+            const roundData: GameData = {
+                red: 0,
+                green: 0,
+                blue: 0,
+            };
+            const draws = round.split(',');
 
-			for(const rawDraw of draws){
-				const draw = rawDraw.split(' ').filter((line) => line != '');
-				if(draw[1] == 'red'){
-					roundData.red = parseInt(draw[0]);
-				} else if (draw[1] == 'blue') {
-					roundData.blue = parseInt(draw[0]);
-				} else if (draw[1] == 'green'){
-					roundData.green = parseInt(draw[0]);
-				} else {
-					throw new Error('Wrong Color')
-				}
+            for (const rawDraw of draws) {
+                const draw = rawDraw.split(' ').filter((line) => line != '');
+                if (draw[1] == 'red') {
+                    roundData.red = parseInt(draw[0]);
+                } else if (draw[1] == 'blue') {
+                    roundData.blue = parseInt(draw[0]);
+                } else if (draw[1] == 'green') {
+                    roundData.green = parseInt(draw[0]);
+                } else {
+                    throw new Error('Wrong Color')
+                }
 
-			}
-			gameData.push(roundData);
+            }
+            gameData.push(roundData);
 
-		}
-		data.push(gameData);
-	}
-	return data
+        }
+        data.push(gameData);
+    }
+    return data
 }
 
 
@@ -61,25 +61,25 @@ const inputData = getInputData();
 const gameData: GameData[][] = parseData(inputData);
 
 
-const BAG_CONFIG: GameData =  {
-	red: 12,
-	green: 13,
-	blue: 14,
+const BAG_CONFIG: GameData = {
+    red: 12,
+    green: 13,
+    blue: 14,
 }
 
 
 let sum: number = 0;
 
 gameData.forEach((game, index) => {
-	const validGame = game.every((round) => {
-		return round.red <= BAG_CONFIG.red 
-		&& round.green <= BAG_CONFIG.green 
-		&& round.blue <= BAG_CONFIG.blue
-	});
+    const validGame = game.every((round) => {
+        return round.red <= BAG_CONFIG.red
+            && round.green <= BAG_CONFIG.green
+            && round.blue <= BAG_CONFIG.blue
+    });
 
-	if(validGame){
-		sum += index+1;
-	}
+    if (validGame) {
+        sum += index + 1;
+    }
 })
 
 console.log(sum);
