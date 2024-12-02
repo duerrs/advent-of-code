@@ -10,7 +10,6 @@ import (
 )
 
 func partOne(left []int, right []int) {
-
 	sort.Slice(left, func(i, j int) bool {
 		return left[i] < left[j]
 	})
@@ -29,7 +28,7 @@ func partOne(left []int, right []int) {
 		differenceSum += int(difference)
 	}
 
-	fmt.Printf("Result: %d", differenceSum)
+	fmt.Printf("Result: %d\n", differenceSum)
 
 }
 
@@ -51,7 +50,7 @@ func partTwo(left []int, right []int) {
 		}
 	}
 
-	fmt.Printf("Result: %d", similarityScoreSum)
+	fmt.Printf("Result: %d\n", similarityScoreSum)
 }
 
 func main() {
@@ -100,7 +99,7 @@ func main() {
 		}
 	}
 
-	//partOne(left, right)
+	partOne(left, right)
 	partTwo(left, right)
 
 }
